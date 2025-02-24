@@ -8,9 +8,12 @@ const Home = () => {
   useEffect(() => {
     fetchFavoriteMovies()
       .then(data => setMovies(data.results))
-      .catch(error => setError(error.message));
+      .catch(error => {
+        return setError(error.message);
+      });
   }, []);
   if (!movies) {
+    console.log(error);
     return <h2>Loading...</h2>;
   }
   return (
