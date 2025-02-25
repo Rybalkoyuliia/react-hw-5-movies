@@ -2,6 +2,7 @@ import Movie from 'components/Movie/Movie';
 import React, { useEffect, useState } from 'react';
 import { fetchFavoriteMovies } from 'services/API';
 import s from './Home.module.css';
+import { toast } from 'react-toastify';
 
 const Home = () => {
   const [movies, setMovies] = useState(null);
@@ -17,6 +18,9 @@ const Home = () => {
   }, []);
   if (!movies) {
     return <h2>Loading...</h2>;
+  }
+  if (error) {
+    toast.error(error.message);
   }
   return (
     <div>

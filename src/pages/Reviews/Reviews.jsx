@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchMovieReviwes } from 'services/API';
 import s from './Reviews.module.css';
+import { toast } from 'react-toastify';
 
 const Reviews = () => {
   const [reviews, setReviews] = useState(null);
@@ -16,6 +17,9 @@ const Reviews = () => {
 
   if (!reviews) {
     return;
+  }
+  if (error) {
+    toast.error(error.message);
   }
   return (
     <ul className={s.reviews_list}>
