@@ -1,0 +1,15 @@
+.movies_form {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.movies_find_input {
+  font-size: 24px;
+  padding: 5px 10px;
+}
+
+.movies_button {
+  font-size: 24px;
+  padding: 5px 10px;
+}

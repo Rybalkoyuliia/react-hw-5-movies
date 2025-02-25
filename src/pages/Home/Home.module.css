@@ -1,0 +1,12 @@
+.trending_title {
+  font-size: 46px;
+  text-align: center;
+  color: grey;
+  margin-bottom: 30px;
+}
+
+.movies_list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 30px;
+}

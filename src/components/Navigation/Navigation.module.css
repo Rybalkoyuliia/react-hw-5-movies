@@ -1,0 +1,12 @@
+.nav_list {
+  display: flex;
+  gap: 20px;
+  font-size: 34px;
+  font-weight: bold;
+  color: grey;
+  li {
+    a {
+      color: inherit;
+    }
+  }
+}

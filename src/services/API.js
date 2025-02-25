@@ -7,16 +7,42 @@ axios.defaults.headers.common['Authorization'] =
 
 axios.defaults.headers.common['accept'] = 'application/json';
 
+axios.defaults.params = {
+  language: 'en-US',
+};
+
 // axios.defaults.headers.common['api_key'] = '31da7fa30c28855443f7f201f43ee4c8';
 
 export const fetchFavoriteMovies = async () => {
   try {
-    const { data } = await axios.get('/trending/movie/day', {
-      params: {
-        language: 'en-US',
-      },
-    });
-    console.log(data);
+    const { data } = await axios.get('/trending/movie/day');
+    return data;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const fetchMovieById = async id => {
+  try {
+    const { data } = await axios.get(`/movie/${id}`);
+    return data;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const fetchMovieCredits = async id => {
+  try {
+    const { data } = await axios.get(`/movie/${id}/credits`);
+    return data;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const fetchMovieReviwes = async id => {
+  try {
+    const { data } = await axios.get(`/movie/${id}/reviews`);
     return data;
   } catch (error) {
     return error;

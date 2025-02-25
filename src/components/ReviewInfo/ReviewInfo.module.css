@@ -1,0 +1,16 @@
+.review_item {
+  display: flex;
+  div {
+    min-width: 120px;
+    img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+    }
+  }
+}
+
+.author_name {
+  color: black;
+  font-weight: bold;
+}

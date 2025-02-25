@@ -1,5 +1,7 @@
+import Movie from 'components/Movie/Movie';
 import React, { useEffect, useState } from 'react';
 import { fetchFavoriteMovies } from 'services/API';
+import s from './Home.module.css';
 
 const Home = () => {
   const [movies, setMovies] = useState(null);
@@ -9,19 +11,19 @@ const Home = () => {
     fetchFavoriteMovies()
       .then(data => setMovies(data.results))
       .catch(error => {
+        console.log(error);
         return setError(error.message);
       });
   }, []);
   if (!movies) {
-    console.log(error);
     return <h2>Loading...</h2>;
   }
   return (
     <div>
-      <h1>Trending today</h1>
-      <ul>
+      <h1 className={s.trending_title}>Trending today</h1>
+      <ul className={s.movies_list}>
         {movies?.map(movie => (
-          <li key={movie.id}>{movie.title}</li>
+          <Movie key={movie.id} {...movie} />
         ))}
       </ul>
     </div>
