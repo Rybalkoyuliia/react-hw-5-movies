@@ -1,25 +1,20 @@
 import CastInfo from 'components/CastInfo/CastInfo';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchMovieCredits } from 'services/API';
 import s from './Cast.module.css';
-import { toast } from 'react-toastify';
+import useHttp from 'hooks/useHttp';
+import EmptySearch from 'components/EmptySearch/EmptySearch';
 
 const Cast = () => {
-  const [cast, setCast] = useState(null);
-  const [error, setError] = useState(null);
   const { id } = useParams();
-  useEffect(() => {
-    fetchMovieCredits(id)
-      .then(data => setCast(data))
-      .catch(err => setError(err));
-  }, [id]);
+  const [cast] = useHttp(fetchMovieCredits, id);
 
   if (!cast) {
-    return;
+    return <h4>Loading...</h4>;
   }
-  if (error) {
-    toast.error(error.message);
+  if (!cast.cast.length) {
+    return <EmptySearch />;
   }
   return (
     <ul className={s.cast_list}>

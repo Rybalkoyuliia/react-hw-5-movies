@@ -1,26 +1,23 @@
 import ReviewInfo from 'components/ReviewInfo/ReviewInfo';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchMovieReviwes } from 'services/API';
 import s from './Reviews.module.css';
-import { toast } from 'react-toastify';
+import useHttp from 'hooks/useHttp';
+import EmptySearch from 'components/EmptySearch/EmptySearch';
 
 const Reviews = () => {
-  const [reviews, setReviews] = useState(null);
-  const [error, setError] = useState(null);
   const { id } = useParams();
-  useEffect(() => {
-    fetchMovieReviwes(id)
-      .then(data => setReviews(data))
-      .catch(err => setError(err));
-  }, [id]);
+  const [reviews] = useHttp(fetchMovieReviwes, id);
 
   if (!reviews) {
     return;
   }
-  if (error) {
-    toast.error(error.message);
+
+  if (!reviews.results.length) {
+    return <EmptySearch />;
   }
+
   return (
     <ul className={s.reviews_list}>
       {reviews.results.map(rev => (

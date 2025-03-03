@@ -1,25 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { NavLink, Outlet, useParams } from 'react-router-dom';
-import { toast } from 'react-toastify';
 import { fetchMovieById } from 'services/API';
 import s from './MoviePage.module.css';
+import useHttp from 'hooks/useHttp';
 
 const MovieDetails = () => {
-  const [movie, setMovie] = useState(null);
-  const [error, setError] = useState(null);
   const { id } = useParams();
-  useEffect(() => {
-    fetchMovieById(id)
-      .then(data => setMovie(data))
-      .catch(err => setError(err));
-  }, [id]);
+  const [movie] = useHttp(fetchMovieById, id);
 
   if (!movie) {
     return <h1>Loading...</h1>;
   }
-  if (error) {
-    toast.error(`${error.message}`);
-  }
+
   const {
     original_title,
     release_date,
