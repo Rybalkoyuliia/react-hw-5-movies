@@ -48,3 +48,12 @@ export const fetchMovieReviwes = async id => {
     return error;
   }
 };
+
+export const fetchMoviesByQuery = async query => {
+  try {
+    const { data } = await axios.get('/search/movie', { params: { query } });
+    return data;
+  } catch (error) {
+    return error;
+  }
+};

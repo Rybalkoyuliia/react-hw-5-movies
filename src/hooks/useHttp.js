@@ -4,16 +4,26 @@ import { toast } from 'react-toastify';
 const useHttp = (func, parametr) => {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    func(parametr)
-      .then(data => setData(data))
-      .catch(err => setError(err));
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        const response = await func(parametr);
+        setData(response);
+      } catch (err) {
+        setError(err);
+        toast.error(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
   }, [func, parametr]);
-  if (error) {
-    toast.error(error.message);
-  }
-  return [data, setData, error];
+
+  return [data, error, loading];
 };
 
 export default useHttp;

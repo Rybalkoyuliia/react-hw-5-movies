@@ -1,15 +1,26 @@
-import React from 'react';
-import { NavLink, Outlet, useParams } from 'react-router-dom';
+import React, { useRef } from 'react';
+import {
+  Link,
+  NavLink,
+  Outlet,
+  useLocation,
+  useParams,
+} from 'react-router-dom';
 import { fetchMovieById } from 'services/API';
 import s from './MoviePage.module.css';
 import useHttp from 'hooks/useHttp';
+import Loader from 'components/Loader/Loader';
 
 const MovieDetails = () => {
   const { id } = useParams();
   const [movie] = useHttp(fetchMovieById, id);
 
+  const location = useLocation();
+
+  const backBtnRef = useRef(location.state?.from || '/');
+
   if (!movie) {
-    return <h1>Loading...</h1>;
+    return <Loader />;
   }
 
   const {
@@ -25,6 +36,9 @@ const MovieDetails = () => {
   const movieURL = `https://image.tmdb.org/t/p/w500${poster_path}`;
   return (
     <>
+      <Link className={s.backBtn} to={backBtnRef.current}>
+        Back
+      </Link>
       <div className={s.movie_container}>
         <img src={movieURL} alt={tagline} />
         <ul className={s.movie_descr_list}>

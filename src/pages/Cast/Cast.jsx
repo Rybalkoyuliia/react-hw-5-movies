@@ -5,13 +5,14 @@ import { fetchMovieCredits } from 'services/API';
 import s from './Cast.module.css';
 import useHttp from 'hooks/useHttp';
 import EmptySearch from 'components/EmptySearch/EmptySearch';
+import Loader from 'components/Loader/Loader';
 
 const Cast = () => {
   const { id } = useParams();
   const [cast] = useHttp(fetchMovieCredits, id);
 
   if (!cast) {
-    return <h4>Loading...</h4>;
+    return <Loader />;
   }
   if (!cast.cast.length) {
     return <EmptySearch />;

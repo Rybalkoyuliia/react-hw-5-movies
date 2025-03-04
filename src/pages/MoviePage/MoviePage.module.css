@@ -1,6 +1,7 @@
 .movie_container {
   display: flex;
   gap: 40px;
+  margin-top: 25px;
   img {
     height: 70vh;
   }
@@ -59,4 +60,21 @@
   a {
     color: grey;
   }
+  a:hover {
+    color: white;
+  }
+}
+
+.backBtn {
+  background-color: grey;
+  padding: 10px;
+  color: black;
+  font-weight: bold;
+  font-size: 24px;
+  border-radius: 4px;
+}
+
+.backBtn:hover {
+  color: white;
+  cursor: pointer;
 }

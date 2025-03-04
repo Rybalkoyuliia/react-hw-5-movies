@@ -5,13 +5,14 @@ import { fetchMovieReviwes } from 'services/API';
 import s from './Reviews.module.css';
 import useHttp from 'hooks/useHttp';
 import EmptySearch from 'components/EmptySearch/EmptySearch';
+import Loader from 'components/Loader/Loader';
 
 const Reviews = () => {
   const { id } = useParams();
   const [reviews] = useHttp(fetchMovieReviwes, id);
 
   if (!reviews) {
-    return;
+    return <Loader />;
   }
 
   if (!reviews.results.length) {
